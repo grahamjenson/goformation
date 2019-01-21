@@ -58,12 +58,12 @@ type AWSEC2EC2Fleet struct {
 	// ValidFrom AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-validfrom
-	ValidFrom int `json:"ValidFrom,omitempty"`
+	ValidFrom string `json:"ValidFrom,omitempty"`
 
 	// ValidUntil AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-validuntil
-	ValidUntil int `json:"ValidUntil,omitempty"`
+	ValidUntil string `json:"ValidUntil,omitempty"`
 
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
 	_deletionPolicy DeletionPolicy

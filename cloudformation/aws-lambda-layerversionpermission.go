@@ -6,19 +6,29 @@ import (
 	"fmt"
 )
 
-// AWSECSCluster AWS CloudFormation Resource (AWS::ECS::Cluster)
-// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
-type AWSECSCluster struct {
+// AWSLambdaLayerVersionPermission AWS CloudFormation Resource (AWS::Lambda::LayerVersionPermission)
+// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversionpermission.html
+type AWSLambdaLayerVersionPermission struct {
 
-	// ClusterName AWS CloudFormation Property
-	// Required: false
-	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html#cfn-ecs-cluster-clustername
-	ClusterName string `json:"ClusterName,omitempty"`
+	// Action AWS CloudFormation Property
+	// Required: true
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversionpermission.html#cfn-lambda-layerversionpermission-action
+	Action string `json:"Action,omitempty"`
 
-	// Tags AWS CloudFormation Property
+	// LayerVersionArn AWS CloudFormation Property
+	// Required: true
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversionpermission.html#cfn-lambda-layerversionpermission-layerversionarn
+	LayerVersionArn string `json:"LayerVersionArn,omitempty"`
+
+	// OrganizationId AWS CloudFormation Property
 	// Required: false
-	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html#cfn-ecs-cluster-tags
-	Tags []Tag `json:"Tags,omitempty"`
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversionpermission.html#cfn-lambda-layerversionpermission-organizationid
+	OrganizationId string `json:"OrganizationId,omitempty"`
+
+	// Principal AWS CloudFormation Property
+	// Required: true
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversionpermission.html#cfn-lambda-layerversionpermission-principal
+	Principal string `json:"Principal,omitempty"`
 
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
 	_deletionPolicy DeletionPolicy
@@ -31,44 +41,44 @@ type AWSECSCluster struct {
 }
 
 // AWSCloudFormationType returns the AWS CloudFormation resource type
-func (r *AWSECSCluster) AWSCloudFormationType() string {
-	return "AWS::ECS::Cluster"
+func (r *AWSLambdaLayerVersionPermission) AWSCloudFormationType() string {
+	return "AWS::Lambda::LayerVersionPermission"
 }
 
 // DependsOn returns a slice of logical ID names this resource depends on.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html
-func (r *AWSECSCluster) DependsOn() []string {
+func (r *AWSLambdaLayerVersionPermission) DependsOn() []string {
 	return r._dependsOn
 }
 
 // SetDependsOn specify that the creation of this resource follows another.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html
-func (r *AWSECSCluster) SetDependsOn(dependencies []string) {
+func (r *AWSLambdaLayerVersionPermission) SetDependsOn(dependencies []string) {
 	r._dependsOn = dependencies
 }
 
 // Metadata returns the metadata associated with this resource.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html
-func (r *AWSECSCluster) Metadata() map[string]interface{} {
+func (r *AWSLambdaLayerVersionPermission) Metadata() map[string]interface{} {
 	return r._metadata
 }
 
 // SetMetadata enables you to associate structured data with this resource.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html
-func (r *AWSECSCluster) SetMetadata(metadata map[string]interface{}) {
+func (r *AWSLambdaLayerVersionPermission) SetMetadata(metadata map[string]interface{}) {
 	r._metadata = metadata
 }
 
 // SetDeletionPolicy applies an AWS CloudFormation DeletionPolicy to this resource
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
-func (r *AWSECSCluster) SetDeletionPolicy(policy DeletionPolicy) {
+func (r *AWSLambdaLayerVersionPermission) SetDeletionPolicy(policy DeletionPolicy) {
 	r._deletionPolicy = policy
 }
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r AWSECSCluster) MarshalJSON() ([]byte, error) {
-	type Properties AWSECSCluster
+func (r AWSLambdaLayerVersionPermission) MarshalJSON() ([]byte, error) {
+	type Properties AWSLambdaLayerVersionPermission
 	return json.Marshal(&struct {
 		Type           string
 		Properties     Properties
@@ -86,8 +96,8 @@ func (r AWSECSCluster) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON is a custom JSON unmarshalling hook that strips the outer
 // AWS CloudFormation resource object, and just keeps the 'Properties' field.
-func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
-	type Properties AWSECSCluster
+func (r *AWSLambdaLayerVersionPermission) UnmarshalJSON(b []byte) error {
+	type Properties AWSLambdaLayerVersionPermission
 	res := &struct {
 		Type       string
 		Properties *Properties
@@ -101,7 +111,7 @@ func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
 
 	// If the resource has no Properties set, it could be nil
 	if res.Properties != nil {
-		*r = AWSECSCluster(*res.Properties)
+		*r = AWSLambdaLayerVersionPermission(*res.Properties)
 	}
 	if res.DependsOn != nil {
 		r._dependsOn = res.DependsOn
@@ -113,22 +123,22 @@ func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// GetAllAWSECSClusterResources retrieves all AWSECSCluster items from an AWS CloudFormation template
-func (t *Template) GetAllAWSECSClusterResources() map[string]AWSECSCluster {
-	results := map[string]AWSECSCluster{}
+// GetAllAWSLambdaLayerVersionPermissionResources retrieves all AWSLambdaLayerVersionPermission items from an AWS CloudFormation template
+func (t *Template) GetAllAWSLambdaLayerVersionPermissionResources() map[string]AWSLambdaLayerVersionPermission {
+	results := map[string]AWSLambdaLayerVersionPermission{}
 	for name, untyped := range t.Resources {
 		switch resource := untyped.(type) {
-		case AWSECSCluster:
+		case AWSLambdaLayerVersionPermission:
 			// We found a strongly typed resource of the correct type; use it
 			results[name] = resource
 		case map[string]interface{}:
 			// We found an untyped resource (likely from JSON) which *might* be
 			// the correct type, but we need to check it's 'Type' field
 			if resType, ok := resource["Type"]; ok {
-				if resType == "AWS::ECS::Cluster" {
+				if resType == "AWS::Lambda::LayerVersionPermission" {
 					// The resource is correct, unmarshal it into the results
 					if b, err := json.Marshal(resource); err == nil {
-						var result AWSECSCluster
+						var result AWSLambdaLayerVersionPermission
 						if err := json.Unmarshal(b, &result); err == nil {
 							results[name] = result
 						}
@@ -140,22 +150,22 @@ func (t *Template) GetAllAWSECSClusterResources() map[string]AWSECSCluster {
 	return results
 }
 
-// GetAWSECSClusterWithName retrieves all AWSECSCluster items from an AWS CloudFormation template
+// GetAWSLambdaLayerVersionPermissionWithName retrieves all AWSLambdaLayerVersionPermission items from an AWS CloudFormation template
 // whose logical ID matches the provided name. Returns an error if not found.
-func (t *Template) GetAWSECSClusterWithName(name string) (AWSECSCluster, error) {
+func (t *Template) GetAWSLambdaLayerVersionPermissionWithName(name string) (AWSLambdaLayerVersionPermission, error) {
 	if untyped, ok := t.Resources[name]; ok {
 		switch resource := untyped.(type) {
-		case AWSECSCluster:
+		case AWSLambdaLayerVersionPermission:
 			// We found a strongly typed resource of the correct type; use it
 			return resource, nil
 		case map[string]interface{}:
 			// We found an untyped resource (likely from JSON) which *might* be
 			// the correct type, but we need to check it's 'Type' field
 			if resType, ok := resource["Type"]; ok {
-				if resType == "AWS::ECS::Cluster" {
+				if resType == "AWS::Lambda::LayerVersionPermission" {
 					// The resource is correct, unmarshal it into the results
 					if b, err := json.Marshal(resource); err == nil {
-						var result AWSECSCluster
+						var result AWSLambdaLayerVersionPermission
 						if err := json.Unmarshal(b, &result); err == nil {
 							return result, nil
 						}
@@ -164,5 +174,5 @@ func (t *Template) GetAWSECSClusterWithName(name string) (AWSECSCluster, error) 
 			}
 		}
 	}
-	return AWSECSCluster{}, errors.New("resource not found")
+	return AWSLambdaLayerVersionPermission{}, errors.New("resource not found")
 }

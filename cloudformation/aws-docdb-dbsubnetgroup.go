@@ -6,18 +6,28 @@ import (
 	"fmt"
 )
 
-// AWSECSCluster AWS CloudFormation Resource (AWS::ECS::Cluster)
-// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
-type AWSECSCluster struct {
+// AWSDocDBDBSubnetGroup AWS CloudFormation Resource (AWS::DocDB::DBSubnetGroup)
+// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html
+type AWSDocDBDBSubnetGroup struct {
 
-	// ClusterName AWS CloudFormation Property
+	// DBSubnetGroupDescription AWS CloudFormation Property
+	// Required: true
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-dbsubnetgroupdescription
+	DBSubnetGroupDescription string `json:"DBSubnetGroupDescription,omitempty"`
+
+	// DBSubnetGroupName AWS CloudFormation Property
 	// Required: false
-	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html#cfn-ecs-cluster-clustername
-	ClusterName string `json:"ClusterName,omitempty"`
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-dbsubnetgroupname
+	DBSubnetGroupName string `json:"DBSubnetGroupName,omitempty"`
+
+	// SubnetIds AWS CloudFormation Property
+	// Required: true
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-subnetids
+	SubnetIds []string `json:"SubnetIds,omitempty"`
 
 	// Tags AWS CloudFormation Property
 	// Required: false
-	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html#cfn-ecs-cluster-tags
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-tags
 	Tags []Tag `json:"Tags,omitempty"`
 
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
@@ -31,44 +41,44 @@ type AWSECSCluster struct {
 }
 
 // AWSCloudFormationType returns the AWS CloudFormation resource type
-func (r *AWSECSCluster) AWSCloudFormationType() string {
-	return "AWS::ECS::Cluster"
+func (r *AWSDocDBDBSubnetGroup) AWSCloudFormationType() string {
+	return "AWS::DocDB::DBSubnetGroup"
 }
 
 // DependsOn returns a slice of logical ID names this resource depends on.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html
-func (r *AWSECSCluster) DependsOn() []string {
+func (r *AWSDocDBDBSubnetGroup) DependsOn() []string {
 	return r._dependsOn
 }
 
 // SetDependsOn specify that the creation of this resource follows another.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html
-func (r *AWSECSCluster) SetDependsOn(dependencies []string) {
+func (r *AWSDocDBDBSubnetGroup) SetDependsOn(dependencies []string) {
 	r._dependsOn = dependencies
 }
 
 // Metadata returns the metadata associated with this resource.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html
-func (r *AWSECSCluster) Metadata() map[string]interface{} {
+func (r *AWSDocDBDBSubnetGroup) Metadata() map[string]interface{} {
 	return r._metadata
 }
 
 // SetMetadata enables you to associate structured data with this resource.
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html
-func (r *AWSECSCluster) SetMetadata(metadata map[string]interface{}) {
+func (r *AWSDocDBDBSubnetGroup) SetMetadata(metadata map[string]interface{}) {
 	r._metadata = metadata
 }
 
 // SetDeletionPolicy applies an AWS CloudFormation DeletionPolicy to this resource
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
-func (r *AWSECSCluster) SetDeletionPolicy(policy DeletionPolicy) {
+func (r *AWSDocDBDBSubnetGroup) SetDeletionPolicy(policy DeletionPolicy) {
 	r._deletionPolicy = policy
 }
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r AWSECSCluster) MarshalJSON() ([]byte, error) {
-	type Properties AWSECSCluster
+func (r AWSDocDBDBSubnetGroup) MarshalJSON() ([]byte, error) {
+	type Properties AWSDocDBDBSubnetGroup
 	return json.Marshal(&struct {
 		Type           string
 		Properties     Properties
@@ -86,8 +96,8 @@ func (r AWSECSCluster) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON is a custom JSON unmarshalling hook that strips the outer
 // AWS CloudFormation resource object, and just keeps the 'Properties' field.
-func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
-	type Properties AWSECSCluster
+func (r *AWSDocDBDBSubnetGroup) UnmarshalJSON(b []byte) error {
+	type Properties AWSDocDBDBSubnetGroup
 	res := &struct {
 		Type       string
 		Properties *Properties
@@ -101,7 +111,7 @@ func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
 
 	// If the resource has no Properties set, it could be nil
 	if res.Properties != nil {
-		*r = AWSECSCluster(*res.Properties)
+		*r = AWSDocDBDBSubnetGroup(*res.Properties)
 	}
 	if res.DependsOn != nil {
 		r._dependsOn = res.DependsOn
@@ -113,22 +123,22 @@ func (r *AWSECSCluster) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// GetAllAWSECSClusterResources retrieves all AWSECSCluster items from an AWS CloudFormation template
-func (t *Template) GetAllAWSECSClusterResources() map[string]AWSECSCluster {
-	results := map[string]AWSECSCluster{}
+// GetAllAWSDocDBDBSubnetGroupResources retrieves all AWSDocDBDBSubnetGroup items from an AWS CloudFormation template
+func (t *Template) GetAllAWSDocDBDBSubnetGroupResources() map[string]AWSDocDBDBSubnetGroup {
+	results := map[string]AWSDocDBDBSubnetGroup{}
 	for name, untyped := range t.Resources {
 		switch resource := untyped.(type) {
-		case AWSECSCluster:
+		case AWSDocDBDBSubnetGroup:
 			// We found a strongly typed resource of the correct type; use it
 			results[name] = resource
 		case map[string]interface{}:
 			// We found an untyped resource (likely from JSON) which *might* be
 			// the correct type, but we need to check it's 'Type' field
 			if resType, ok := resource["Type"]; ok {
-				if resType == "AWS::ECS::Cluster" {
+				if resType == "AWS::DocDB::DBSubnetGroup" {
 					// The resource is correct, unmarshal it into the results
 					if b, err := json.Marshal(resource); err == nil {
-						var result AWSECSCluster
+						var result AWSDocDBDBSubnetGroup
 						if err := json.Unmarshal(b, &result); err == nil {
 							results[name] = result
 						}
@@ -140,22 +150,22 @@ func (t *Template) GetAllAWSECSClusterResources() map[string]AWSECSCluster {
 	return results
 }
 
-// GetAWSECSClusterWithName retrieves all AWSECSCluster items from an AWS CloudFormation template
+// GetAWSDocDBDBSubnetGroupWithName retrieves all AWSDocDBDBSubnetGroup items from an AWS CloudFormation template
 // whose logical ID matches the provided name. Returns an error if not found.
-func (t *Template) GetAWSECSClusterWithName(name string) (AWSECSCluster, error) {
+func (t *Template) GetAWSDocDBDBSubnetGroupWithName(name string) (AWSDocDBDBSubnetGroup, error) {
 	if untyped, ok := t.Resources[name]; ok {
 		switch resource := untyped.(type) {
-		case AWSECSCluster:
+		case AWSDocDBDBSubnetGroup:
 			// We found a strongly typed resource of the correct type; use it
 			return resource, nil
 		case map[string]interface{}:
 			// We found an untyped resource (likely from JSON) which *might* be
 			// the correct type, but we need to check it's 'Type' field
 			if resType, ok := resource["Type"]; ok {
-				if resType == "AWS::ECS::Cluster" {
+				if resType == "AWS::DocDB::DBSubnetGroup" {
 					// The resource is correct, unmarshal it into the results
 					if b, err := json.Marshal(resource); err == nil {
-						var result AWSECSCluster
+						var result AWSDocDBDBSubnetGroup
 						if err := json.Unmarshal(b, &result); err == nil {
 							return result, nil
 						}
@@ -164,5 +174,5 @@ func (t *Template) GetAWSECSClusterWithName(name string) (AWSECSCluster, error) 
 			}
 		}
 	}
-	return AWSECSCluster{}, errors.New("resource not found")
+	return AWSDocDBDBSubnetGroup{}, errors.New("resource not found")
 }

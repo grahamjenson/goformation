@@ -236,8 +236,8 @@
                 "Location": {
                     "Documentation": "https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessapplication",
                     "Required": true,
-                    "PrimitiveTypes": [ "String" ],
-                    "Types": [ "ApplicationLocation" ],
+                    "PrimitiveType": "String",
+                    "Types": ["ApplicationLocation"],
                     "UpdateType": "Immutable"
                 },
                 "Parameters": {
@@ -429,8 +429,12 @@
                 "Events": {
                     "Documentation": "https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#s3",
                     "Required": true,
-                    "Type": "List",
-                    "PrimitiveItemType": "String"
+                    "PrimitiveTypes": [
+                        "String"
+                    ],
+                    "PrimitiveItemTypes": [
+                        "String"
+                    ]
                 },
                 "Filter": {
                     "Documentation": "https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#s3",

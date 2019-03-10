@@ -1,8 +1,8 @@
 # Contributing to GoFormation
 
 Contributions to GoFormation should be made via GitHub [pull
-requests](https://github.com/grahamjenson/goformation/pulls) and discussed using
-GitHub [issues](https://github.com/grahamjenson/goformation/issues).
+requests](https://github.com/awslabs/goformation/pulls) and discussed using
+GitHub [issues](https://github.com/awslabs/goformation/issues).
 
 ### Before you start
 
@@ -11,9 +11,9 @@ an issue to discuss it.
 
 ### Making the request
 
-1. Create a fork of the GoFormation repository [(quick link)](https://github.com/grahamjenson/goformation#fork-destination-box)
+1. Create a fork of the GoFormation repository [(quick link)](https://github.com/awslabs/goformation#fork-destination-box)
 2. Commit your changes to your fork
-3. Create a new pull request [(quick link)](https://github.com/grahamjenson/goformation/compare)  
+3. Create a new pull request [(quick link)](https://github.com/awslabs/goformation/compare)  
 
 ### Testing
 

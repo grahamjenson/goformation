@@ -63,7 +63,7 @@ func (r *AWSCloudFrontCloudFrontOriginAccessIdentity) SetDeletionPolicy(policy p
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSCloudFrontCloudFrontOriginAccessIdentity) MarshalJSON() ([]byte, error) {
+func (r AWSCloudFrontCloudFrontOriginAccessIdentity) MarshalJSON() ([]byte, error) {
 	type Properties AWSCloudFrontCloudFrontOriginAccessIdentity
 	return json.Marshal(&struct {
 		Type           string
@@ -73,7 +73,7 @@ func (r *AWSCloudFrontCloudFrontOriginAccessIdentity) MarshalJSON() ([]byte, err
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

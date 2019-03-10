@@ -92,7 +92,7 @@ func (r *AWSLambdaAlias) SetUpdatePolicy(policy *policies.UpdatePolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSLambdaAlias) MarshalJSON() ([]byte, error) {
+func (r AWSLambdaAlias) MarshalJSON() ([]byte, error) {
 	type Properties AWSLambdaAlias
 	return json.Marshal(&struct {
 		Type           string
@@ -103,7 +103,7 @@ func (r *AWSLambdaAlias) MarshalJSON() ([]byte, error) {
 		UpdatePolicy   *policies.UpdatePolicy  `json:"UpdatePolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

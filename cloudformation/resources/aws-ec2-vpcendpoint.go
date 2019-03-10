@@ -41,10 +41,10 @@ type AWSEC2VPCEndpoint struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-subnetids
 	SubnetIds []string `json:"SubnetIds,omitempty"`
 
-	// VPCEndpointType AWS CloudFormation Property
+	// VpcEndpointType AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-vpcendpointtype
-	VPCEndpointType string `json:"VPCEndpointType,omitempty"`
+	VpcEndpointType string `json:"VpcEndpointType,omitempty"`
 
 	// VpcId AWS CloudFormation Property
 	// Required: true
@@ -98,7 +98,7 @@ func (r *AWSEC2VPCEndpoint) SetDeletionPolicy(policy policies.DeletionPolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSEC2VPCEndpoint) MarshalJSON() ([]byte, error) {
+func (r AWSEC2VPCEndpoint) MarshalJSON() ([]byte, error) {
 	type Properties AWSEC2VPCEndpoint
 	return json.Marshal(&struct {
 		Type           string
@@ -108,7 +108,7 @@ func (r *AWSEC2VPCEndpoint) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

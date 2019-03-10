@@ -8,18 +8,12 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-// AWSServerlessApplication_Location is a helper struct that can hold either a String or ApplicationLocation value
+// AWSServerlessApplication_Location is a helper struct that can hold either a ApplicationLocation value
 type AWSServerlessApplication_Location struct {
-	String *string
-
 	ApplicationLocation *AWSServerlessApplication_ApplicationLocation
 }
 
 func (r AWSServerlessApplication_Location) value() interface{} {
-
-	if r.String != nil {
-		return r.String
-	}
 
 	ret := []interface{}{}
 
@@ -50,9 +44,6 @@ func (r *AWSServerlessApplication_Location) UnmarshalJSON(b []byte) error {
 	}
 
 	switch val := typecheck.(type) {
-
-	case string:
-		r.String = &val
 
 	case map[string]interface{}:
 

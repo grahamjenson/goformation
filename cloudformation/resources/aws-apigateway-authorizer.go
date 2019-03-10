@@ -57,7 +57,7 @@ type AWSApiGatewayAuthorizer struct {
 	RestApiId string `json:"RestApiId,omitempty"`
 
 	// Type AWS CloudFormation Property
-	// Required: false
+	// Required: true
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-authorizer.html#cfn-apigateway-authorizer-type
 	Type string `json:"Type,omitempty"`
 
@@ -108,7 +108,7 @@ func (r *AWSApiGatewayAuthorizer) SetDeletionPolicy(policy policies.DeletionPoli
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSApiGatewayAuthorizer) MarshalJSON() ([]byte, error) {
+func (r AWSApiGatewayAuthorizer) MarshalJSON() ([]byte, error) {
 	type Properties AWSApiGatewayAuthorizer
 	return json.Marshal(&struct {
 		Type           string
@@ -118,7 +118,7 @@ func (r *AWSApiGatewayAuthorizer) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

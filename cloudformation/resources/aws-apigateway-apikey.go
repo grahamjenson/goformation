@@ -41,6 +41,11 @@ type AWSApiGatewayApiKey struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-apikey.html#cfn-apigateway-apikey-stagekeys
 	StageKeys []AWSApiGatewayApiKey_StageKey `json:"StageKeys,omitempty"`
 
+	// Value AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-apikey.html#cfn-apigateway-apikey-value
+	Value string `json:"Value,omitempty"`
+
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
 	_deletionPolicy policies.DeletionPolicy
 
@@ -88,7 +93,7 @@ func (r *AWSApiGatewayApiKey) SetDeletionPolicy(policy policies.DeletionPolicy) 
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSApiGatewayApiKey) MarshalJSON() ([]byte, error) {
+func (r AWSApiGatewayApiKey) MarshalJSON() ([]byte, error) {
 	type Properties AWSApiGatewayApiKey
 	return json.Marshal(&struct {
 		Type           string
@@ -98,7 +103,7 @@ func (r *AWSApiGatewayApiKey) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

@@ -83,7 +83,7 @@ func (r *AWSApiGatewayUsagePlan) SetDeletionPolicy(policy policies.DeletionPolic
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSApiGatewayUsagePlan) MarshalJSON() ([]byte, error) {
+func (r AWSApiGatewayUsagePlan) MarshalJSON() ([]byte, error) {
 	type Properties AWSApiGatewayUsagePlan
 	return json.Marshal(&struct {
 		Type           string
@@ -93,7 +93,7 @@ func (r *AWSApiGatewayUsagePlan) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

@@ -16,6 +16,11 @@ type AWSStepFunctionsActivity struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-activity.html#cfn-stepfunctions-activity-name
 	Name string `json:"Name,omitempty"`
 
+	// Tags AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-stepfunctions-activity.html#cfn-stepfunctions-activity-tags
+	Tags []AWSStepFunctionsActivity_TagsEntry `json:"Tags,omitempty"`
+
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
 	_deletionPolicy policies.DeletionPolicy
 
@@ -63,7 +68,7 @@ func (r *AWSStepFunctionsActivity) SetDeletionPolicy(policy policies.DeletionPol
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSStepFunctionsActivity) MarshalJSON() ([]byte, error) {
+func (r AWSStepFunctionsActivity) MarshalJSON() ([]byte, error) {
 	type Properties AWSStepFunctionsActivity
 	return json.Marshal(&struct {
 		Type           string
@@ -73,7 +78,7 @@ func (r *AWSStepFunctionsActivity) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

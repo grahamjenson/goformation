@@ -11,6 +11,11 @@ import (
 // See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
 type AWSElasticLoadBalancingV2TargetGroup struct {
 
+	// HealthCheckEnabled AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-healthcheckenabled
+	HealthCheckEnabled bool `json:"HealthCheckEnabled,omitempty"`
+
 	// HealthCheckIntervalSeconds AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-healthcheckintervalseconds
@@ -52,12 +57,12 @@ type AWSElasticLoadBalancingV2TargetGroup struct {
 	Name string `json:"Name,omitempty"`
 
 	// Port AWS CloudFormation Property
-	// Required: true
+	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-port
-	Port int `json:"Port"`
+	Port int `json:"Port,omitempty"`
 
 	// Protocol AWS CloudFormation Property
-	// Required: true
+	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-protocol
 	Protocol string `json:"Protocol,omitempty"`
 
@@ -87,7 +92,7 @@ type AWSElasticLoadBalancingV2TargetGroup struct {
 	UnhealthyThresholdCount int `json:"UnhealthyThresholdCount,omitempty"`
 
 	// VpcId AWS CloudFormation Property
-	// Required: true
+	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#cfn-elasticloadbalancingv2-targetgroup-vpcid
 	VpcId string `json:"VpcId,omitempty"`
 
@@ -138,7 +143,7 @@ func (r *AWSElasticLoadBalancingV2TargetGroup) SetDeletionPolicy(policy policies
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSElasticLoadBalancingV2TargetGroup) MarshalJSON() ([]byte, error) {
+func (r AWSElasticLoadBalancingV2TargetGroup) MarshalJSON() ([]byte, error) {
 	type Properties AWSElasticLoadBalancingV2TargetGroup
 	return json.Marshal(&struct {
 		Type           string
@@ -148,7 +153,7 @@ func (r *AWSElasticLoadBalancingV2TargetGroup) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

@@ -71,6 +71,11 @@ type AWSCloudWatchAlarm struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-metricname
 	MetricName string `json:"MetricName,omitempty"`
 
+	// Metrics AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarm-metrics
+	Metrics []AWSCloudWatchAlarm_MetricDataQuery `json:"Metrics,omitempty"`
+
 	// Namespace AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-namespace
@@ -153,7 +158,7 @@ func (r *AWSCloudWatchAlarm) SetDeletionPolicy(policy policies.DeletionPolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSCloudWatchAlarm) MarshalJSON() ([]byte, error) {
+func (r AWSCloudWatchAlarm) MarshalJSON() ([]byte, error) {
 	type Properties AWSCloudWatchAlarm
 	return json.Marshal(&struct {
 		Type           string
@@ -163,7 +168,7 @@ func (r *AWSCloudWatchAlarm) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

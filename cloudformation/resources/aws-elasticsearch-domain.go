@@ -46,6 +46,11 @@ type AWSElasticsearchDomain struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html#cfn-elasticsearch-domain-encryptionatrestoptions
 	EncryptionAtRestOptions *AWSElasticsearchDomain_EncryptionAtRestOptions `json:"EncryptionAtRestOptions,omitempty"`
 
+	// NodeToNodeEncryptionOptions AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html#cfn-elasticsearch-domain-nodetonodeencryptionoptions
+	NodeToNodeEncryptionOptions *AWSElasticsearchDomain_NodeToNodeEncryptionOptions `json:"NodeToNodeEncryptionOptions,omitempty"`
+
 	// SnapshotOptions AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticsearch-domain.html#cfn-elasticsearch-domain-snapshotoptions
@@ -108,7 +113,7 @@ func (r *AWSElasticsearchDomain) SetDeletionPolicy(policy policies.DeletionPolic
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSElasticsearchDomain) MarshalJSON() ([]byte, error) {
+func (r AWSElasticsearchDomain) MarshalJSON() ([]byte, error) {
 	type Properties AWSElasticsearchDomain
 	return json.Marshal(&struct {
 		Type           string
@@ -118,7 +123,7 @@ func (r *AWSElasticsearchDomain) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

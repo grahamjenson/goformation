@@ -27,7 +27,7 @@ type AWSSNSSubscription struct {
 	FilterPolicy interface{} `json:"FilterPolicy,omitempty"`
 
 	// Protocol AWS CloudFormation Property
-	// Required: false
+	// Required: true
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html#cfn-sns-protocol
 	Protocol string `json:"Protocol,omitempty"`
 
@@ -42,7 +42,7 @@ type AWSSNSSubscription struct {
 	Region string `json:"Region,omitempty"`
 
 	// TopicArn AWS CloudFormation Property
-	// Required: false
+	// Required: true
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-subscription.html#topicarn
 	TopicArn string `json:"TopicArn,omitempty"`
 
@@ -93,7 +93,7 @@ func (r *AWSSNSSubscription) SetDeletionPolicy(policy policies.DeletionPolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSSNSSubscription) MarshalJSON() ([]byte, error) {
+func (r AWSSNSSubscription) MarshalJSON() ([]byte, error) {
 	type Properties AWSSNSSubscription
 	return json.Marshal(&struct {
 		Type           string
@@ -103,7 +103,7 @@ func (r *AWSSNSSubscription) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

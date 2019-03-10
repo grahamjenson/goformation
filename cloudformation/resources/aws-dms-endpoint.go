@@ -26,6 +26,11 @@ type AWSDMSEndpoint struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-dynamodbsettings
 	DynamoDbSettings *AWSDMSEndpoint_DynamoDbSettings `json:"DynamoDbSettings,omitempty"`
 
+	// ElasticsearchSettings AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-elasticsearchsettings
+	ElasticsearchSettings *AWSDMSEndpoint_ElasticsearchSettings `json:"ElasticsearchSettings,omitempty"`
+
 	// EndpointIdentifier AWS CloudFormation Property
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-endpointidentifier
@@ -45,6 +50,11 @@ type AWSDMSEndpoint struct {
 	// Required: false
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-extraconnectionattributes
 	ExtraConnectionAttributes string `json:"ExtraConnectionAttributes,omitempty"`
+
+	// KinesisSettings AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-kinesissettings
+	KinesisSettings *AWSDMSEndpoint_KinesisSettings `json:"KinesisSettings,omitempty"`
 
 	// KmsKeyId AWS CloudFormation Property
 	// Required: false
@@ -138,7 +148,7 @@ func (r *AWSDMSEndpoint) SetDeletionPolicy(policy policies.DeletionPolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSDMSEndpoint) MarshalJSON() ([]byte, error) {
+func (r AWSDMSEndpoint) MarshalJSON() ([]byte, error) {
 	type Properties AWSDMSEndpoint
 	return json.Marshal(&struct {
 		Type           string
@@ -148,7 +158,7 @@ func (r *AWSDMSEndpoint) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

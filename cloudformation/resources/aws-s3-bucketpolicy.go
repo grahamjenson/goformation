@@ -68,7 +68,7 @@ func (r *AWSS3BucketPolicy) SetDeletionPolicy(policy policies.DeletionPolicy) {
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSS3BucketPolicy) MarshalJSON() ([]byte, error) {
+func (r AWSS3BucketPolicy) MarshalJSON() ([]byte, error) {
 	type Properties AWSS3BucketPolicy
 	return json.Marshal(&struct {
 		Type           string
@@ -78,7 +78,7 @@ func (r *AWSS3BucketPolicy) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

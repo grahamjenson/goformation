@@ -36,6 +36,11 @@ type AWSAmazonMQConfiguration struct {
 	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-configuration.html#cfn-amazonmq-configuration-name
 	Name string `json:"Name,omitempty"`
 
+	// Tags AWS CloudFormation Property
+	// Required: false
+	// See: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-amazonmq-configuration.html#cfn-amazonmq-configuration-tags
+	Tags []AWSAmazonMQConfiguration_TagsEntry `json:"Tags,omitempty"`
+
 	// _deletionPolicy represents a CloudFormation DeletionPolicy
 	_deletionPolicy policies.DeletionPolicy
 
@@ -83,7 +88,7 @@ func (r *AWSAmazonMQConfiguration) SetDeletionPolicy(policy policies.DeletionPol
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSAmazonMQConfiguration) MarshalJSON() ([]byte, error) {
+func (r AWSAmazonMQConfiguration) MarshalJSON() ([]byte, error) {
 	type Properties AWSAmazonMQConfiguration
 	return json.Marshal(&struct {
 		Type           string
@@ -93,7 +98,7 @@ func (r *AWSAmazonMQConfiguration) MarshalJSON() ([]byte, error) {
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,

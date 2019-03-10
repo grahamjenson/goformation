@@ -78,7 +78,7 @@ func (r *AWSServiceCatalogPortfolioProductAssociation) SetDeletionPolicy(policy 
 
 // MarshalJSON is a custom JSON marshalling hook that embeds this object into
 // an AWS CloudFormation JSON resource's 'Properties' field and adds a 'Type'.
-func (r *AWSServiceCatalogPortfolioProductAssociation) MarshalJSON() ([]byte, error) {
+func (r AWSServiceCatalogPortfolioProductAssociation) MarshalJSON() ([]byte, error) {
 	type Properties AWSServiceCatalogPortfolioProductAssociation
 	return json.Marshal(&struct {
 		Type           string
@@ -88,7 +88,7 @@ func (r *AWSServiceCatalogPortfolioProductAssociation) MarshalJSON() ([]byte, er
 		DeletionPolicy policies.DeletionPolicy `json:"DeletionPolicy,omitempty"`
 	}{
 		Type:           r.AWSCloudFormationType(),
-		Properties:     (Properties)(*r),
+		Properties:     (Properties)(r),
 		DependsOn:      r._dependsOn,
 		Metadata:       r._metadata,
 		DeletionPolicy: r._deletionPolicy,
